@@ -9,8 +9,10 @@ public:
   FastHankelTransform(int num_sample);
   ~FastHankelTransform();
   Eigen::VectorXd sampling();
-  void get_feval(const Eigen::Ref<const Eigen::VectorXd> &feval);
+  void set_feval(const Eigen::Ref<const Eigen::VectorXd> &feval);
   Eigen::VectorXd calculate();
+
+  Eigen::VectorXd get_phi();
 
 private:
   double evaluate_alpha();
@@ -26,7 +28,10 @@ private:
   std::complex<double> *phi_;
   std::complex<double> *j1_;
 
-  const double tol_ = 1.0e-8;
+  bool x_updated_ = false;
+  bool f_updated_ = false;
+
+  const double tol_ = 1.0e-10;
 };
 
 #endif
