@@ -11,9 +11,8 @@ using CRefCMat = const Ref<const MatrixXd>;
 
 PYBIND11_MODULE(fhtcxx, m) {
   py::class_<FastHankelTransform>(m, "FastHankelTransform")
-      .def(py::init<int, int>())
+      .def(py::init<int, double>())
       .def("sampling", &FastHankelTransform::sampling)
       .def("set_feval", &FastHankelTransform::set_feval)
-      .def("get_phi", &FastHankelTransform::get_phi)
       .def("calculate", &FastHankelTransform::calculate);
 }

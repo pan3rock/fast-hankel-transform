@@ -30,8 +30,8 @@ def target(x):
 
 
 def test_func1():
-    n = int(1e3)
-    fht = FastHankelTransform(n, 10)
+    n = int(1e4)
+    fht = FastHankelTransform(n, 2.0*np.pi*10)
     x = fht.sampling()
     y = func1(x)
     fht.set_feval(y)

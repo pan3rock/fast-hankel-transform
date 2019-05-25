@@ -6,13 +6,11 @@
 
 class FastHankelTransform {
 public:
-  FastHankelTransform(int num_sample, int num_fresnel);
+  FastHankelTransform(int num_sample, double coef);
   ~FastHankelTransform();
   Eigen::VectorXd sampling();
   void set_feval(const Eigen::Ref<const Eigen::VectorXd> &feval);
   Eigen::VectorXd calculate();
-
-  Eigen::VectorXd get_phi();
 
 private:
   double evaluate_alpha();
@@ -20,7 +18,7 @@ private:
   void evaluate_phi();
   void evaluate_j1();
   const int num_sample_;
-  const int num_fresnel_;
+  const double coef_;
   double alpha_;
   double k0_;
 

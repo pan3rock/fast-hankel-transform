@@ -17,9 +17,9 @@ using std::exp;
 using std::log;
 using std::pow;
 
-FastHankelTransform::FastHankelTransform(int num_sample, int num_fresnel)
-    : num_sample_(num_sample), num_fresnel_(num_fresnel),
-      x_(VectorXd::Zero(num_sample_)), f_(VectorXd::Zero(num_sample_ + 1)),
+FastHankelTransform::FastHankelTransform(int num_sample, double coef)
+    : num_sample_(num_sample), coef_(coef), x_(VectorXd::Zero(num_sample_)),
+      f_(VectorXd::Zero(num_sample_ + 1)),
       phi_(new std::complex<double>[num_sample_ * 2]),
       j1_(new std::complex<double>[num_sample_ * 2]) {
   alpha_ = evaluate_alpha();
@@ -75,8 +75,7 @@ void FastHankelTransform::evaluate_phi() {
 
 void FastHankelTransform::evaluate_j1() {
   for (auto i = 0; i < num_sample_ * 2; ++i) {
-    double x =
-        2.0 * PI * num_fresnel_ * x_(0) * exp(alpha_ * (i + 1 - num_sample_));
+    double x = coef_ * x_(0) * exp(alpha_ * (i + 1 - num_sample_));
     j1_[i] = boost::math::cyl_bessel_j(1, x);
   }
 }
@@ -118,7 +117,7 @@ VectorXd FastHankelTransform::calculate() {
 
   VectorXd ret(num_sample_);
   for (auto i = 0; i < num_sample_; ++i) {
-    ret(i) = 1.0 / x_(i) / num_fresnel_ * out[i][0] / nsample / PI;
+    ret(i) = 2.0 / (x_(i) * coef_) * out[i][0] / nsample;
   }
 
   fftw_destroy_plan(p1);
@@ -129,13 +128,5 @@ VectorXd FastHankelTransform::calculate() {
   fftw_free(in);
   fftw_free(out);
 
-  return ret;
-}
-
-VectorXd FastHankelTransform::get_phi() {
-  VectorXd ret(num_sample_ * 2);
-  for (auto i = 0; i < num_sample_ * 2; ++i) {
-    ret(i) = phi_[i].real();
-  }
   return ret;
 }
