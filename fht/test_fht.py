@@ -1,4 +1,4 @@
-from .fhtcxx import FastHankelTransform
+from .fhtcxx import FastHankelTransform, ApproxHankelTransform
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.special import jv
@@ -36,7 +36,18 @@ def test_func1():
     y = func1(x)
     fht.set_feval(y)
     hk_eval = fht.calculate()
+
+    n = int(1e2)
+    aht = ApproxHankelTransform(n)
+    x2 = aht.sampling(1.0e-5, 1.0)
+    y2 = func1(x2) * x2
+    aht.set_feval(y2)
+
+    rmax = 1e2
+    r = np.linspace(0, rmax, 1.0e3)
+    hk2_eval = [aht.calculate(t) for t in r]
     plt.figure()
     plt.plot(y, target(y), 'b', alpha=0.5)
     plt.plot(x, hk_eval, 'r', alpha=0.5)
+    plt.plot(r/rmax, hk2_eval, 'k--', alpha=0.5)
     plt.show()

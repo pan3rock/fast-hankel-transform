@@ -2,6 +2,7 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/fht)
 
 set(FILE_LIST
    fast_hankel_transform.cc
+   approx_hankel_transform.cc
    pybind.cc
 )
 

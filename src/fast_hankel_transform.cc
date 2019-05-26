@@ -9,8 +9,6 @@
 #include <fmt/ostream.h>
 #include <iostream>
 
-const double PI = 3.14159265358979323846;
-
 using namespace Eigen;
 using std::abs;
 using std::exp;

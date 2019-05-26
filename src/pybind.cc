@@ -1,3 +1,4 @@
+#include "approx_hankel_transform.hpp"
 #include "fast_hankel_transform.hpp"
 
 #include <Eigen/Dense>
@@ -15,4 +16,9 @@ PYBIND11_MODULE(fhtcxx, m) {
       .def("sampling", &FastHankelTransform::sampling)
       .def("set_feval", &FastHankelTransform::set_feval)
       .def("calculate", &FastHankelTransform::calculate);
+  py::class_<ApproxHankelTransform>(m, "ApproxHankelTransform")
+      .def(py::init<int>())
+      .def("sampling", &ApproxHankelTransform::sampling)
+      .def("set_feval", &ApproxHankelTransform::set_feval)
+      .def("calculate", &ApproxHankelTransform::calculate);
 }
