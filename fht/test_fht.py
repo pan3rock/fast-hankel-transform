@@ -42,6 +42,6 @@ def test_func1():
     fht.set_feval(y2)
     hk_eval = fht.calculate()
     plt.figure()
-    plt.plot(y, target(y2 * ux * uy), 'b', alpha=0.5)
-    plt.plot(x2, hk_eval, 'r', alpha=0.5)
+    plt.plot(y*uy, target(y * ux * uy), 'b', alpha=0.5)
+    plt.plot(x*uy, hk_eval, 'r', alpha=0.5)
     plt.show()
