@@ -23,7 +23,8 @@ def func1(x):
 
 
 def target(x):
-    eta = 2.0 * np.pi * x * 10
+    #     eta = 2.0 * np.pi * x * 10
+    eta = x
     ret = np.sqrt(10.0 * np.pi) * eta ** (-4.0) * (2.0 * eta ** 2 * jv(0, eta)
                                                    + (eta ** 3 - 4.0 * eta) * jv(1, eta))
     return ret
@@ -31,12 +32,16 @@ def target(x):
 
 def test_func1():
     n = int(1e4)
-    fht = FastHankelTransform(n, 2.0*np.pi*10)
+    ux = 1.0
+    uy = 10.0
+    fht = FastHankelTransform(n, ux, uy)
     x = fht.sampling()
     y = func1(x)
-    fht.set_feval(y)
+    x2 = x * ux
+    y2 = func1(x * ux)
+    fht.set_feval(y2)
     hk_eval = fht.calculate()
     plt.figure()
-    plt.plot(y, target(y), 'b', alpha=0.5)
-    plt.plot(x, hk_eval, 'r', alpha=0.5)
+    plt.plot(y, target(y2 * ux * uy), 'b', alpha=0.5)
+    plt.plot(x2, hk_eval, 'r', alpha=0.5)
     plt.show()
