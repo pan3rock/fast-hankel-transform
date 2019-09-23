@@ -18,3 +18,8 @@ target_include_directories(fhtcxx
     PRIVATE
     ${CMAKE_SOURCE_DIR}/include
 )
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    target_compile_options(fhtcxx PRIVATE -fsized-deallocation)
+endif()
+
