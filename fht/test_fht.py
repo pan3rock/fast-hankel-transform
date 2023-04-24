@@ -42,10 +42,10 @@ from scipy.special import jv
 def test_alpha():
     n = 128
     def func(x): return -np.log(1 - np.exp(-x)) / (n - 1)
-    plt.figure()
-    t = np.linspace(-1000.0, 1000.0, 1.0e6)
-    plt.plot(t, func(t))
-    plt.show()
+    # plt.figure()
+    # t = np.linspace(-1000.0, 1000.0, int(1.0e6))
+    # plt.plot(t, func(t))
+    # plt.show()
     x = 1.0
     for i in range(100):
         x_next = func(x)
@@ -66,7 +66,7 @@ def target(x):
 
 
 def test_func1():
-    n = int(1e4)
+    n = int(1e2)
     ux = 1.0
     uy = 10.0
     fht = FastHankelTransform(n, ux, uy)

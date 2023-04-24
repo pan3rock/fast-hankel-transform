@@ -42,7 +42,7 @@
 
 class FastHankelTransform {
 public:
-  FastHankelTransform(int num_sample, double ux_, double uy_);
+  FastHankelTransform(int num_sample, double ux_, double uy_, int order = 0);
   ~FastHankelTransform();
   Eigen::VectorXd sampling();
   void set_feval(const Eigen::Ref<const Eigen::VectorXd> &feval);
@@ -66,6 +66,7 @@ private:
 
   bool x_updated_ = false;
   bool f_updated_ = false;
+  int order_;
 };
 
 #endif

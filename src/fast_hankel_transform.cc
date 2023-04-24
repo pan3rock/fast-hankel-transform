@@ -51,11 +51,12 @@ using std::exp;
 using std::log;
 using std::pow;
 
-FastHankelTransform::FastHankelTransform(int num_sample, double ux, double uy)
+FastHankelTransform::FastHankelTransform(int num_sample, double ux, double uy,
+                                         int order)
     : num_sample_(num_sample), ux_(ux), uy_(uy),
       x_(VectorXd::Zero(num_sample_)), f_(VectorXd::Zero(num_sample_ + 1)),
       phi_(new std::complex<double>[num_sample_ * 2]),
-      j1_(new std::complex<double>[num_sample_ * 2]) {
+      j1_(new std::complex<double>[num_sample_ * 2]), order_(order) {
   alpha_ = evaluate_alpha();
   k0_ = evaluate_k0(alpha_);
 }
